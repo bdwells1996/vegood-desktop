@@ -1,7 +1,7 @@
 ---
 description: Create a feature spec file and branch from a short idea
 argument-hint: "[Short feature description, optionally: 'figma: <component-link>']"
-allowed-tools: Read, Write, Glob, Bash(git switch:*)
+allowed-tools: Read, Write, Glob, Bash(git switch:*), Agent
 ---
 
 You are helping to spin up a new feature spec for this application, from a short idea provided in the user input below. Always adhere to any rules or requirements set out in any CLAUDE.md files when responding.
@@ -81,6 +81,23 @@ Before making any content, switch to a new Git branch using the `branch_name` de
 ## Step 4. Draft the spec content
 
 Create a markdown spec document that Plan mode can use directly and save it in the _specs folder using the `feature_slug`. Use the exact structure as defined in the spec template file here: @_specs/template.md. Do not add technical implementation details such as code examples.
+
+## Step 4.5. Generate components (when applicable)
+
+Determine whether the feature primarily involves creating one or more new UI components or a component set. Signals that it does:
+
+- The feature title or description contains words like "component", "button", "card", "form", "input", "modal", "dialog", "badge", "tag", "chip", "widget", "panel", "layout", "nav", "menu", "dropdown", "toggle", "checkbox", "radio", "select", "table", "list", "icon", "avatar", "banner", "toast", "tooltip", "drawer", "sidebar"
+- The Figma hint (if present) points to a component or component set
+- The feature is clearly UI-only with no data-fetching, routing, or backend logic implied
+
+If the feature is component-focused, invoke the **component-generator** subagent and pass it:
+1. The `feature_title` as the component name
+2. Any design brief bullet points produced in Step 2.5 (if available)
+3. The Figma link (`figma_hint`) if present
+
+The component-generator will scaffold the initial component file(s) and return a Design System Implementation Summary. Append this summary to the spec file under a new `## Component Scaffold` section at the bottom.
+
+If the feature is NOT component-focused (e.g. a page, a data pipeline, an API route, or a database migration), skip this step entirely.
 
 ## Step 5. Final output to the user
 
