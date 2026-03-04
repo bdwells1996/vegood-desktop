@@ -15,6 +15,10 @@ const meta = {
 			control: "select",
 			options: ["primary", "secondary", "ghost", "destructive"],
 		},
+		size: {
+			control: "select",
+			options: ["xs", "sm", "md", "lg", "xl"],
+		},
 		disabled: {
 			control: "boolean",
 		},
@@ -30,6 +34,68 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+// Size Stories
+export const ExtraSmall: Story = {
+	args: {
+		size: "xs",
+		children: "Button",
+	},
+};
+
+export const Small: Story = {
+	args: {
+		size: "sm",
+		children: "Button",
+	},
+};
+
+export const Medium: Story = {
+	args: {
+		size: "md",
+		children: "Button",
+	},
+};
+
+export const Large: Story = {
+	args: {
+		size: "lg",
+		children: "Button",
+	},
+};
+
+export const ExtraLarge: Story = {
+	args: {
+		size: "xl",
+		children: "Button",
+	},
+};
+
+export const AllSizes: Story = {
+	args: { children: "" },
+	render: () => (
+		<div className="flex items-end gap-4">
+			<Button size="xs">XSmall</Button>
+			<Button size="sm">Small</Button>
+			<Button size="md">Medium</Button>
+			<Button size="lg">Large</Button>
+			<Button size="xl">XLarge</Button>
+		</div>
+	),
+};
+
+export const AllSizesWithIcon: Story = {
+	args: { children: "" },
+	render: () => (
+		<div className="flex items-end gap-4">
+			<Button size="xs" iconLeft={Check}>XSmall</Button>
+			<Button size="sm" iconLeft={Check}>Small</Button>
+			<Button size="md" iconLeft={Check}>Medium</Button>
+			<Button size="lg" iconLeft={Check}>Large</Button>
+			<Button size="xl" iconLeft={Check}>XLarge</Button>
+		</div>
+	),
+};
 
 // Primary Variant Stories
 export const Primary: Story = {
