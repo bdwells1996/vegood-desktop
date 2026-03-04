@@ -18,11 +18,11 @@ interface ButtonProps {
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
-  xs: 'h-[30px] px-[10px] gap-[4px] text-[12px] leading-[18px] tracking-[-0.24px] rounded-[8px]',
-  sm: 'h-[36px] px-[14px] gap-[6px] text-[13px] leading-[19.5px] tracking-[-0.3362px] rounded-[10px]',
-  md: 'h-[42px] px-[20px] gap-[8px] text-[15px] leading-[22.5px] tracking-[-0.534px] rounded-[14px]',
-  lg: 'h-[50px] px-[24px] gap-[10px] text-[16px] leading-[24px] tracking-[-0.6325px] rounded-[16px]',
-  xl: 'h-[58px] px-[32px] gap-[12px] text-[18px] leading-[27px] tracking-[-0.7995px] rounded-[18px]',
+  xs: 'h-[30px] px-[10px] gap-[4px] text-[12px] leading-[18px] tracking-[-0.24px] rounded-sm',
+  sm: 'h-[36px] px-[14px] gap-[6px] text-[13px] leading-[19.5px] tracking-[-0.3362px] rounded-sm',
+  md: 'h-[42px] px-[20px] gap-[8px] text-[15px] leading-[22.5px] tracking-[-0.534px] rounded-md',
+  lg: 'h-[50px] px-[24px] gap-[10px] text-[16px] leading-[24px] tracking-[-0.6325px] rounded-lg',
+  xl: 'h-[58px] px-[32px] gap-[12px] text-[18px] leading-[27px] tracking-[-0.7995px] rounded-lg',
 }
 
 const variantClasses = {
