@@ -58,7 +58,7 @@
 
   /* ── Fonts ────────────────────────────────────────── */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   /* ── Font sizes ───────────────────────────────────── */
   --text-overline: 11px;
