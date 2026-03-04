@@ -4,6 +4,13 @@ import type { Preview } from '@storybook/nextjs-vite'
 import '../app/globals.css'
 
 const preview: Preview = {
+  decorators: [
+    (Story) => {
+      document.documentElement.style.setProperty('--font-inter', '"Inter", system-ui, -apple-system, sans-serif');
+      document.documentElement.style.setProperty('--font-geist-mono', '"Geist Mono", ui-monospace, monospace');
+      return Story();
+    },
+  ],
   parameters: {
     controls: {
       matchers: {
