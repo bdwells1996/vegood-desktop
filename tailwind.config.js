@@ -1,7 +1,9 @@
-import type { Config } from "tailwindcss";
-
-export default {
-  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
+/** @type {import('tailwindcss').Config} */
+const config = {
+  content: [
+    "./app/**/*.{js,jsx,ts,tsx}",
+    "./stories/**/*.{js,jsx,ts,tsx}",
+  ],
   darkMode: "class",
   theme: {
     extend: {
@@ -13,7 +15,7 @@ export default {
           200: "#BBF7D0",
           300: "#86EFAC",
           400: "#4ADE80",
-          500: "#22C55E", // ← Main brand color
+          500: "#22C55E",
           600: "#16A34A",
           700: "#15803D",
           800: "#166534",
@@ -78,7 +80,6 @@ export default {
       },
 
       fontSize: {
-        // Mobile-optimized type scale
         overline: ["11px", { lineHeight: "16px", letterSpacing: "0.08em" }],
         caption: ["12px", { lineHeight: "16px", letterSpacing: "0.02em" }],
         body: ["14px", { lineHeight: "20px" }],
@@ -120,4 +121,6 @@ export default {
     },
   },
   plugins: [],
-} satisfies Config;
+};
+
+export default config;
