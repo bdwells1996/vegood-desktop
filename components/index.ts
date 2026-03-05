@@ -1,3 +1,5 @@
 export { Button } from './Button'
+export { Form, useFormErrors } from './Form'
+export { Input } from './Input'
 // Future: export { IconButton } from './IconButton'
 // Future: export { CategoryChip } from './CategoryChip'
