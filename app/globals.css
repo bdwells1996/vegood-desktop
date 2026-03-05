@@ -53,6 +53,7 @@
   /* ── Border ───────────────────────────────────────── */
   --color-border: #E2E8F0;
   --color-border-strong: #CBD5E1;
+  --color-border-error: #EF4444;
   --color-border-dark: #334155;
   --color-border-dark-strong: #475569;
 
@@ -96,6 +97,7 @@
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
+  --radius-input: 14px;
   --radius-xl: 16px;
   --radius-2xl: 20px;
 
