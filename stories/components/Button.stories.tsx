@@ -1,7 +1,7 @@
 import { AlertCircle, Check, Mail } from "lucide-react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import { Button } from "@/app/components";
+import { Button } from "@/components";
 
 const meta = {
 	title: "Components/Button",

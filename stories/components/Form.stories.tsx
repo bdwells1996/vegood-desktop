@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { z } from "zod";
-import { Form } from "@/app/components/Form";
-import { Input } from "@/app/components/Input";
-import { Button } from "@/app/components";
+import { Form } from "@/components/Form";
+import { Input } from "@/components/Input";
+import { Button } from "@/components";
 
 // ---------------------------------------------------------------------------
 // Mock server actions

@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import { Icon, type IconSize } from "@/app/components/Icon";
+import { Icon, type IconSize } from "@/components/Icon";
 
 const meta = {
 	title: "Components/Icon",

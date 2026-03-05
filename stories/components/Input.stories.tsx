@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Input } from "@/app/components/Input";
+import { Input } from "@/components/Input";
 
 const meta = {
 	title: "Components/Input",
@@ -40,6 +40,7 @@ export const Default: Story = {
 	args: {
 		name: "default",
 		label: "Label",
+		type: "text",
 		placeholder: "Placeholder text",
 	},
 };
