@@ -10,7 +10,7 @@ import Link from "next/link"
 export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center p-8">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-[384px]">
         <h1 className="mb-2 text-3xl font-bold">Welcome back</h1>
         <p className="mb-8 text-content-tertiary">
           Don&apos;t have an account?{" "}

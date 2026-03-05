@@ -1,4 +1,8 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
 import type { StorybookConfig } from '@storybook/nextjs-vite'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const config: StorybookConfig = {
   "stories": [
@@ -20,6 +24,14 @@ const config: StorybookConfig = {
   },
   "staticDirs": [
     "../public"
-  ]
+  ],
+  viteFinal: async (config) => {
+    config.resolve = config.resolve ?? {}
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, '..'),
+    }
+    return config
+  },
 };
 export default config;
