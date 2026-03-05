@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" fill="none">
+  <path
+    d="M35 5C35 5 12 20 10 42C9 55 18 62 35 65C52 62 61 55 60 42C58 20 35 5 35 5Z"
+    stroke="#22c55e"
+    stroke-width="1.1"
+    stroke-linecap="round"
+    fill="#22c55e"
+    fill-opacity="0.04"
+  />
+  <path d="M35 8C35 25 35 45 35 63" stroke="#22c55e" stroke-width="0.9" stroke-linecap="round" />
+  <path d="M35 22C26 20 18 26 15 34" stroke="#22c55e" stroke-width="0.7" stroke-linecap="round" />
+  <path d="M35 22C44 20 52 26 55 34" stroke="#22c55e" stroke-width="0.7" stroke-linecap="round" />
+  <path d="M35 40C25 37 16 42 14 52" stroke="#22c55e" stroke-width="0.7" stroke-linecap="round" />
+  <path d="M35 40C45 37 54 42 56 52" stroke="#22c55e" stroke-width="0.7" stroke-linecap="round" />
+</svg>

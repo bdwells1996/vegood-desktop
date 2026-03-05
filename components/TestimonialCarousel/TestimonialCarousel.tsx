@@ -27,7 +27,7 @@ export function TestimonialCarousel({
   const [isPaused, setIsPaused] = useState(false)
 
   useEffect(() => {
-    if (true) return
+    if (isPaused) return
     const timer = setTimeout(() => {
       setActiveIndex(prev => (prev + 1) % testimonials.length)
     }, intervalMs)
@@ -59,13 +59,13 @@ export function TestimonialCarousel({
         {/* Quote + Attribution */}
         <figure className="flex flex-col items-center gap-6">
           <blockquote className="w-full max-w-[448px]">
-            <p className="text-white text-h3 leading-relaxed font-regular">
-              <Icon icon={Quote} size="sm" strokeWidth={0} className="text-green-500 inline align-top mr-1 fill-current" />
+            <p className="text-white text-h3 font-regula leading-[27px]">
+              <Icon icon={Quote} size="sm" strokeWidth={0} className="text-green-500 inline align-top mr-2 fill-current" />
               {current.quote}
-              <Icon icon={Quote} size="sm" strokeWidth={0} className="text-green-500 inline align-top ml-1 scale-x-[-1] fill-current" />
+              <Icon icon={Quote} size="sm" strokeWidth={0} className="text-green-500 inline align-top ml-2 scale-x-[-1] fill-current" />
             </p>
           </blockquote>
-          <figcaption className="flex flex-col items-center gap-1">
+          <figcaption className="flex flex-col items-center">
             <span className="text-white font-semibold text-body-lg">{current.name}</span>
             <cite className="text-white/60 text-body not-italic">{current.role}</cite>
           </figcaption>

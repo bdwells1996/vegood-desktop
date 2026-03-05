@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 200" fill="none">
+  <path d="M60 190C60 190 58 100 60 15" stroke="#22c55e" stroke-width="1.3" stroke-linecap="round" />
+  <!-- Left leaflets -->
+  <path d="M60 25C50 18 35 20 35 20C35 20 45 30 60 32" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.06" />
+  <path d="M60 45C48 38 30 42 30 42C30 42 42 52 60 52" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.06" />
+  <path d="M60 65C46 58 28 63 28 63C28 63 40 73 60 72" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.06" />
+  <path d="M60 85C46 78 30 84 30 84C30 84 42 94 60 92" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.06" />
+  <path d="M60 105C48 98 34 104 34 104C34 104 44 114 60 112" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.06" />
+  <path d="M60 125C50 118 38 124 38 124C38 124 46 132 60 130" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.05" />
+  <path d="M60 145C52 140 42 144 42 144C42 144 50 150 60 148" stroke="#22c55e" stroke-width="0.8" stroke-linecap="round" fill="#22c55e" fill-opacity="0.04" />
+  <path d="M60 162C54 158 46 161 46 161C46 161 52 166 60 164" stroke="#22c55e" stroke-width="0.8" stroke-linecap="round" fill="#22c55e" fill-opacity="0.03" />
+  <!-- Right leaflets -->
+  <path d="M60 25C70 18 85 20 85 20C85 20 75 30 60 32" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.06" />
+  <path d="M60 45C72 38 90 42 90 42C90 42 78 52 60 52" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.06" />
+  <path d="M60 65C74 58 92 63 92 63C92 63 80 73 60 72" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.06" />
+  <path d="M60 85C74 78 90 84 90 84C90 84 78 94 60 92" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.06" />
+  <path d="M60 105C72 98 86 104 86 104C86 104 76 114 60 112" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.06" />
+  <path d="M60 125C70 118 82 124 82 124C82 124 74 132 60 130" stroke="#22c55e" stroke-width="1" stroke-linecap="round" fill="#22c55e" fill-opacity="0.05" />
+  <path d="M60 145C68 140 78 144 78 144C78 144 70 150 60 148" stroke="#22c55e" stroke-width="0.8" stroke-linecap="round" fill="#22c55e" fill-opacity="0.04" />
+  <path d="M60 162C66 158 74 161 74 161C74 161 68 166 60 164" stroke="#22c55e" stroke-width="0.8" stroke-linecap="round" fill="#22c55e" fill-opacity="0.03" />
+</svg>
