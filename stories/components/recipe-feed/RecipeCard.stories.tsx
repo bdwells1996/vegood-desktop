@@ -1,7 +1,11 @@
-import { Leaf, Wheat, Egg, Droplet } from "lucide-react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { Droplet, Egg, Leaf, Wheat } from "lucide-react";
 
-import { RecipeCard, type DietaryTag, type AllergenTag } from "@/app/components/RecipeCard";
+import {
+	type AllergenTag,
+	type DietaryTag,
+	RecipeCard,
+} from "@/app/components/RecipeCard";
 
 const meta = {
 	title: "Components/Recipe Feed/RecipeCard",
@@ -49,7 +53,7 @@ const veganTag: DietaryTag = {
 };
 
 const glutenFreeTag: DietaryTag = {
-	label: "Gluten-free",
+	label: "Gluten-free option",
 	icon: Wheat,
 	iconAlt: "No wheat",
 };
