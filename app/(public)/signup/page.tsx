@@ -1,15 +1,15 @@
 "use client";
 
+import Link from "next/link";
+import { signupAction } from "@/actions/auth";
+import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { Input } from "@/components/Input";
-import { Button } from "@/components/Button";
-import { signupAction } from "@/actions/auth";
 import { signupSchema } from "@/schemas/auth";
-import Link from "next/link";
 
 export default function SignupPage() {
 	return (
-		<div className="w-full">
+		<div className="w-full md:max-w-[480px]">
 			<h1 className="mb-2 text-3xl font-medium">Create an account</h1>
 			<p className="mb-8 text-content-secondary">
 				Already have an account?{" "}
@@ -26,7 +26,7 @@ export default function SignupPage() {
 				schema={signupSchema}
 				className="flex flex-col gap-4"
 			>
-				<div className="flex gap-4">
+				<div className="flex flex-col gap-4 sm:flex-row">
 					<Input
 						name="firstName"
 						label="First name"

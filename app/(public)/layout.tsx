@@ -9,7 +9,7 @@ export default function PublicLayout({
 }) {
 	return (
 		<div className="flex min-h-screen">
-			<div className="flex-1 flex items-center justify-center px-4 box-border ">
+			<div className="flex-1 flex flex-col items-center justify-center px-6 box-border overflow-y-auto">
 				{children}
 			</div>
 			<div className="hidden md:flex w-[40%] bg-primary-900 shrink-0 relative overflow-hidden">
