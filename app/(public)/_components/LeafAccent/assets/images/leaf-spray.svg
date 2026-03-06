@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 100" fill="none">
+  <path d="M45 95C45 70 45 40 45 10" stroke="#22c55e" stroke-width="1" stroke-linecap="round" />
+  <path d="M45 15C38 10 28 14 28 14" stroke="#22c55e" stroke-width="0.8" stroke-linecap="round" />
+  <path d="M45 15C52 10 62 14 62 14" stroke="#22c55e" stroke-width="0.8" stroke-linecap="round" />
+  <path d="M45 30C36 24 24 28 24 28" stroke="#22c55e" stroke-width="0.8" stroke-linecap="round" />
+  <path d="M45 30C54 24 66 28 66 28" stroke="#22c55e" stroke-width="0.8" stroke-linecap="round" />
+  <path d="M45 48C38 42 28 46 28 46" stroke="#22c55e" stroke-width="0.8" stroke-linecap="round" />
+  <path d="M45 48C52 42 62 46 62 46" stroke="#22c55e" stroke-width="0.8" stroke-linecap="round" />
+  <path d="M45 65C40 60 32 62 32 62" stroke="#22c55e" stroke-width="0.7" stroke-linecap="round" />
+  <path d="M45 65C50 60 58 62 58 62" stroke="#22c55e" stroke-width="0.7" stroke-linecap="round" />
+  <path d="M45 80C42 76 36 78 36 78" stroke="#22c55e" stroke-width="0.6" stroke-linecap="round" />
+  <path d="M45 80C48 76 54 78 54 78" stroke="#22c55e" stroke-width="0.6" stroke-linecap="round" />
+</svg>
