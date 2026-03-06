@@ -1,19 +1,11 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
-    },
-    "linter": {
-      "enabled": true,
-      "rules": {
-        "nursery": {
-          "noUnknownAtRule": "off"
-        }
-      }
-    }
-  },
-  "files": {
-    "ignore": ["node_modules", ".next", "storybook-static"]
-  }
+	"$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
+	"css": {
+		"linter": {
+			"enabled": true
+		}
+	},
+	"linter": {
+		"enabled": true
+	}
 }
