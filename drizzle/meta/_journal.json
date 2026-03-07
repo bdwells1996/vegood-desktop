@@ -8,6 +8,13 @@
       "when": 1772717376985,
       "tag": "0000_odd_scrambler",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1772817532960,
+      "tag": "0001_overrated_zodiak",
+      "breakpoints": true
     }
   ]
 }
