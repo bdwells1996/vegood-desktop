@@ -2,7 +2,7 @@ import { TestimonialCarousel } from "@/components";
 import { LeafAccent } from "./_components/LeafAccent/LeafAccent";
 import { testimonials } from "./testimonials";
 
-export default function PublicLayout({
+export default function AuthLayout({
 	children,
 }: {
 	children: React.ReactNode;

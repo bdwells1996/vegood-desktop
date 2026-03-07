@@ -1,24 +1,19 @@
-'use client'
+import Link from "next/link";
+import { getRecipesByCategory } from "@/db/queries/recipes";
+import { auth } from "@/lib/auth";
+import { CategorySection } from "./components/CategorySection";
 
-import { useAuth } from "@/hooks/useAuth"
-import Link from "next/link"
-
-export default function BrowsePage() {
-  const { user, isAuthenticated, isLoading } = useAuth()
-
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-content-tertiary">Loading...</p>
-      </div>
-    )
-  }
+export default async function BrowsePage() {
+  const [session, categories] = await Promise.all([
+    auth(),
+    getRecipesByCategory(),
+  ]);
 
   return (
-    <div className="mx-auto max-w-3xl p-8">
+    <div className="mx-auto max-w-6xl p-8">
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Browse Recipes</h1>
-        {isAuthenticated ? (
+        {session?.user ? (
           <Link href="/my-account" className="text-primary-500 hover:underline">
             My account
           </Link>
@@ -34,34 +29,11 @@ export default function BrowsePage() {
         )}
       </div>
 
-      {isAuthenticated ? (
-        <div>
-          <p className="mb-6 text-content-tertiary">
-            Welcome back, {user?.firstName}! Here are all our recipes.
-          </p>
-          <div className="rounded-lg border border-border p-6">
-            <p className="font-medium">Full recipe library — members only</p>
-            <p className="mt-2 text-content-tertiary text-sm">
-              You have access to all recipes, nutritional info, and personalised recommendations.
-            </p>
-          </div>
-        </div>
-      ) : (
-        <div>
-          <p className="mb-6 text-content-tertiary">
-            Sign in to unlock the full recipe library and personalised recommendations.
-          </p>
-          <div className="rounded-lg border border-border p-6 opacity-60">
-            <p className="font-medium">Featured recipes (preview)</p>
-            <p className="mt-2 text-content-tertiary text-sm">
-              <Link href="/signup" className="text-primary-500 hover:underline">
-                Create a free account
-              </Link>{" "}
-              to see all recipes.
-            </p>
-          </div>
-        </div>
-      )}
+      <div className="flex flex-col gap-10">
+        {categories.map((category) => (
+          <CategorySection key={category.id} category={category} />
+        ))}
+      </div>
     </div>
-  )
+  );
 }
