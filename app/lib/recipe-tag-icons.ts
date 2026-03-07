@@ -9,23 +9,25 @@ import {
   Wheat,
   WheatOff,
 } from "lucide-react";
-import type { DietaryTag, AllergenTag } from "@/app/components/RecipeCard";
+import type { AllergenTag, DietaryTag } from "@/app/components/RecipeCard";
 
 const DIETARY_TAG_MAP: Record<string, DietaryTag> = {
-  Vegan: { label: "Vegan", icon: Leaf, iconAlt: "Plant-based" },
-  Vegetarian: { label: "Vegetarian", icon: Sprout, iconAlt: "Vegetarian" },
-  "Gluten-Free": { label: "Gluten-Free", icon: WheatOff, iconAlt: "No gluten" },
-  Raw: { label: "Raw", icon: Sprout, iconAlt: "Raw food" },
-  "Dairy-Free": { label: "Dairy-Free", icon: Droplet, iconAlt: "No dairy" },
-  "Nut-Free": { label: "Nut-Free", icon: Tag, iconAlt: "No nuts" },
+  vegan: { label: "Vegan", icon: Leaf, iconAlt: "Plant-based" },
+  vegetarian: { label: "Vegetarian", icon: Sprout, iconAlt: "Vegetarian" },
+  "gluten-free": { label: "Gluten-Free", icon: WheatOff, iconAlt: "No gluten" },
+  raw: { label: "Raw", icon: Sprout, iconAlt: "Raw food" },
+  "dairy-free": { label: "Dairy-Free", icon: Droplet, iconAlt: "No dairy" },
+  "nut-free": { label: "Nut-Free", icon: Tag, iconAlt: "No nuts" },
 };
 
 const ALLERGEN_TAG_MAP: Record<string, AllergenTag> = {
-  Gluten: { label: "Contains gluten", icon: Wheat },
-  Nuts: { label: "Contains nuts", icon: Nut },
-  Soy: { label: "Contains soy", icon: Bean },
-  Dairy: { label: "Contains dairy", icon: Droplet },
-  Eggs: { label: "Contains eggs", icon: Egg },
+  gluten: { label: "Contains gluten", icon: Wheat },
+  nuts: { label: "Contains nuts", icon: Nut },
+  soy: { label: "Contains soy", icon: Bean },
+  dairy: { label: "Contains dairy", icon: Droplet },
+  eggs: { label: "Contains eggs", icon: Egg },
+  sesame: { label: "Contains sesame", icon: Wheat },
+  coconut: { label: "Contains coconut", icon: Droplet },
 };
 
 export function getDietaryTags(tags: string[]): DietaryTag[] {
@@ -36,6 +38,6 @@ export function getDietaryTags(tags: string[]): DietaryTag[] {
 
 export function getAllergenTags(tags: string[]): AllergenTag[] {
   return tags.map(
-    (tag) => ALLERGEN_TAG_MAP[tag] ?? { label: `Contains ${tag.toLowerCase()}`, icon: Tag }
+    (tag) => ALLERGEN_TAG_MAP[tag] ?? { label: `Contains ${tag}`, icon: Tag }
   );
 }
