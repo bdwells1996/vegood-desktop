@@ -1,7 +1,6 @@
 "use client";
 
 import { ChevronRight } from "lucide-react";
-import Link from "next/link";
 import { RecipeCard } from "@/app/components/RecipeCard";
 import { getAllergenTags, getDietaryTags } from "@/app/lib/recipe-tag-icons";
 import { Icon } from "@/components/Icon";
@@ -11,12 +10,14 @@ interface CategorySectionProps {
 	category: CategoryWithRecipes;
 	cardsPerRow?: number;
 	showAllCards?: boolean;
+	onViewAll?: (slug: string) => void;
 }
 
 export function CategorySection({
 	category,
 	cardsPerRow = 4,
 	showAllCards = false,
+	onViewAll,
 }: CategorySectionProps) {
 	if (category.recipes.length === 0) return null;
 
@@ -28,8 +29,9 @@ export function CategorySection({
 		<section>
 			<div className="mb-4 flex items-baseline justify-between content-center">
 				<h2 className="text-xl font-semibold">{category.title}</h2>
-				<Link
-					href={`/browse?category=${category.slug}`}
+				<button
+					type="button"
+					onClick={() => onViewAll?.(category.slug)}
 					className="text-sm text-primary-600 hover:text-primary-700 transition-colors flex"
 				>
 					View all{" "}
@@ -37,7 +39,7 @@ export function CategorySection({
 						({category.recipes.length})
 					</span>
 					<Icon icon={ChevronRight} />
-				</Link>
+				</button>
 			</div>
 			<div className="grid grid-cols-1 sm-plus:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
 				{category.recipes.slice(0, displayCount).map((recipe) => (

@@ -1,20 +1,65 @@
 "use client";
 
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
+import { useDebounce } from "use-debounce";
 import type { CategoryWithRecipes } from "@/db/queries/recipes";
 import { CategorySection } from "./CategorySection";
+import { SearchInput } from "./SearchInput";
 
 interface BrowseViewProps {
 	categories: CategoryWithRecipes[];
+	initialCategory?: string | null;
 }
 
-export function BrowseView({ categories }: BrowseViewProps) {
-	const searchParams = useSearchParams();
-	const selectedSlug = searchParams.get("category");
-	const selectedCategory = selectedSlug
-		? (categories.find((c) => c.slug === selectedSlug) ?? null)
+export function BrowseView({
+	categories,
+	initialCategory = null,
+}: BrowseViewProps) {
+	const [selectedCategorySlug, setSelectedCategorySlug] = useState<
+		string | null
+	>(initialCategory);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [debouncedSearch] = useDebounce(searchTerm, 300);
+
+	function selectCategory(slug: string) {
+		setSelectedCategorySlug(slug);
+		window.history.replaceState(null, "", `/browse?category=${slug}`);
+	}
+
+	function clearCategory() {
+		setSelectedCategorySlug(null);
+		window.history.replaceState(null, "", "/browse");
+	}
+
+	const selectedCategory = selectedCategorySlug
+		? (categories.find((c) => c.slug === selectedCategorySlug) ?? null)
 		: null;
+
+	const filteredCategories = useMemo(() => {
+		const term = debouncedSearch.toLowerCase();
+
+		if (selectedCategorySlug) {
+			const cat = categories.find((c) => c.slug === selectedCategorySlug);
+			if (!cat) return [];
+			return [
+				{
+					...cat,
+					recipes: term
+						? cat.recipes.filter((r) => r.title.toLowerCase().includes(term))
+						: cat.recipes,
+				},
+			];
+		}
+
+		return categories
+			.map((cat) => ({
+				...cat,
+				recipes: term
+					? cat.recipes.filter((r) => r.title.toLowerCase().includes(term))
+					: cat.recipes,
+			}))
+			.filter((cat) => cat.recipes.length > 0);
+	}, [categories, selectedCategorySlug, debouncedSearch]);
 
 	return (
 		<>
@@ -22,12 +67,13 @@ export function BrowseView({ categories }: BrowseViewProps) {
 				<div className="flex items-center gap-3">
 					{selectedCategory && (
 						<>
-							<Link
-								href="/browse"
+							<button
+								type="button"
+								onClick={clearCategory}
 								className="text-sm text-content-tertiary hover:text-content-primary transition-colors"
 							>
 								Browse
-							</Link>
+							</button>
 							<span className="text-content-tertiary">/</span>
 						</>
 					)}
@@ -35,17 +81,23 @@ export function BrowseView({ categories }: BrowseViewProps) {
 						{selectedCategory ? selectedCategory.title : "Browse Recipes"}
 					</h1>
 				</div>
+				<SearchInput value={searchTerm} onChange={setSearchTerm} />
 			</div>
 
-			{selectedCategory ? (
-				<CategorySection category={selectedCategory} showAllCards />
+			{filteredCategories.length === 0 && debouncedSearch ? (
+				<p className="text-content-secondary">
+					No recipes found for &lsquo;{debouncedSearch}&rsquo;
+				</p>
+			) : selectedCategory ? (
+				<CategorySection category={filteredCategories[0]} showAllCards />
 			) : (
 				<div className="flex flex-col gap-10">
-					{categories.map((category) => (
+					{filteredCategories.map((category) => (
 						<CategorySection
 							key={category.id}
 							category={category}
 							showAllCards={false}
+							onViewAll={selectCategory}
 						/>
 					))}
 				</div>
