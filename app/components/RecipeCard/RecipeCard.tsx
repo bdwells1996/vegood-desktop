@@ -137,7 +137,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 			</div>
 
 			{/* ── Content body ─────────────────────────────────────────────────── */}
-			<div className="flex flex-col pl-4 pr-4 py-4">
+			<div className="flex flex-col pl-4 pr-4 py-4 flex-1">
 				{/* Title + Rating row */}
 				<div className="flex flex-col gap-1">
 					<h3
@@ -180,7 +180,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 
 				{/* Dietary tags — green Badge variant */}
 				{dietaryTags.length > 0 && (
-					<div className="flex flex-wrap gap-1.5 my-3">
+					<div className="flex flex-wrap gap-1.5 mt-3 mb-4">
 						{visibleTags.map((tag) => (
 							<Badge
 								key={tag.label}
@@ -200,7 +200,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 					</div>
 				)}
 
-				<Divider className="mt-[auto]" />
+				<Divider className="mt-auto" />
 
 				{/* Allergens — grey Badge variant with section label or "Allergen free" */}
 				<div className="flex items-center gap-2 mt-2">
@@ -211,6 +211,9 @@ export const RecipeCard: FC<RecipeCardProps> = ({
               text-content-tertiary
               whitespace-nowrap
               font-sans
+              min-h-7
+              flex
+              items-center
             "
 					>
 						{allergens.length > 0 ? "Allergens" : "Allergen free"}
