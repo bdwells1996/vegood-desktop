@@ -101,6 +101,16 @@
   --radius-xl: 16px;
   --radius-2xl: 20px;
 
+  /* ── Breakpoints ──────────────────────────────────── */
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 360px;
+  --breakpoint-sm-plus: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-xxl: 1440px;
+  --breakpoint-xxxl: 1920px;
+
   /* ── Shadows ──────────────────────────────────────── */
   --shadow-card: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
   --shadow-card-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);

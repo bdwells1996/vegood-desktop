@@ -1,8 +1,13 @@
+"use client";
+
+import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import type { FC } from "react";
+import { type FC, useState } from "react";
 import { Badge } from "@/app/components/Badge";
+import { CollapserChip } from "@/app/components/CollapserChip";
 import { StarRating } from "@/app/components/StarRating";
+import { Divider } from "@/components/Divider";
 import type { SvgIconComponent } from "@/components/Icon";
 
 // ─── Dietary tag ──────────────────────────────────────────────────────────────
@@ -63,24 +68,15 @@ export interface RecipeCardProps {
 	href?: string;
 }
 
+const VISIBLE_TAG_COUNT = 3;
+
 /**
  * RecipeCard — displays a recipe with image, title, rating, description,
  * dietary labels, and allergen icons.
  *
- * Matches the Figma "Recipe card" node (2:273) at 282.664×419px.
- *
- * @example
- * <RecipeCard
- *   title="Creamy Garlic Pesto Pasta"
- *   description="Silky smooth pasta tossed in a cashew-based garlic pesto sauce."
- *   imageSrc="/images/pasta.jpg"
- *   imageAlt="A bowl of creamy garlic pesto pasta"
- *   rating={4.6}
- *   reviewCount={876}
- *   prepTime="30 min"
- *   dietaryTags={[{ label: 'Vegan', icon: <LeafIcon />, iconAlt: 'Plant-based' }]}
- *   allergens={[{ label: 'Contains gluten', icon: <WheatIcon /> }]}
- * />
+ * When more than 2 dietary tags are present a CollapserChip is rendered
+ * that expands/collapses the remaining tags. The card height animates
+ * smoothly using Motion's layout animation.
  */
 export const RecipeCard: FC<RecipeCardProps> = ({
 	title,
@@ -94,14 +90,25 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 	allergens = [],
 	href,
 }) => {
+	const [isExpanded, setIsExpanded] = useState(false);
+
 	const formattedRating = rating?.toFixed(1);
 	const formattedReviewCount = reviewCount.toLocaleString();
 
+	const hasOverflow = dietaryTags.length > VISIBLE_TAG_COUNT;
+	const visibleTags =
+		hasOverflow && !isExpanded
+			? dietaryTags.slice(0, VISIBLE_TAG_COUNT)
+			: dietaryTags;
+	const hiddenCount = dietaryTags.length - VISIBLE_TAG_COUNT;
+
 	const article = (
-		<article
+		<motion.article
+			layout
+			transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
 			className="
         relative flex flex-col overflow-hidden
-        w-[282.664px] h-[419px]
+        w-full
         rounded-xl
         bg-background
         shadow-card-md
@@ -130,7 +137,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 			</div>
 
 			{/* ── Content body ─────────────────────────────────────────────────── */}
-			<div className="flex flex-col gap-3 flex-1 pl-4 pr-4 py-4">
+			<div className="flex flex-col pl-4 pr-4 py-4 flex-1">
 				{/* Title + Rating row */}
 				<div className="flex flex-col gap-1">
 					<h3
@@ -173,8 +180,8 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 
 				{/* Dietary tags — green Badge variant */}
 				{dietaryTags.length > 0 && (
-					<div className="flex flex-wrap gap-1.5">
-						{dietaryTags.map((tag) => (
+					<div className="flex flex-wrap gap-1.5 mt-3 mb-4">
+						{visibleTags.map((tag) => (
 							<Badge
 								key={tag.label}
 								variant="green"
@@ -183,23 +190,35 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 								iconAlt={tag.iconAlt}
 							/>
 						))}
+						{hasOverflow && (
+							<CollapserChip
+								count={hiddenCount}
+								isExpanded={isExpanded}
+								onToggle={() => setIsExpanded((prev) => !prev)}
+							/>
+						)}
 					</div>
 				)}
 
-				{/* Allergens — grey Badge variant with section label */}
-				{allergens.length > 0 && (
-					<div className="flex items-center gap-2">
-						<span
-							className="
-                text-[11px] leading-[16.5px] font-normal
-                tracking-[1.0645px] uppercase
-                text-content-tertiary
-                whitespace-nowrap
-                font-sans
-              "
-						>
-							Allergens
-						</span>
+				<Divider className="mt-auto" />
+
+				{/* Allergens — grey Badge variant with section label or "Allergen free" */}
+				<div className="flex items-center gap-2 mt-2">
+					<span
+						className="
+              text-[11px] leading-[16.5px] font-normal
+              tracking-[1.0645px] uppercase
+              text-content-tertiary
+              whitespace-nowrap
+              font-sans
+              min-h-7
+              flex
+              items-center
+            "
+					>
+						{allergens.length > 0 ? "Allergens" : "Allergen free"}
+					</span>
+					{allergens.length > 0 && (
 						<ul className="flex items-center gap-1" aria-label="Allergens">
 							{allergens.map((allergen) => (
 								<li key={allergen.label}>
@@ -211,10 +230,10 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 								</li>
 							))}
 						</ul>
-					</div>
-				)}
+					)}
+				</div>
 			</div>
-		</article>
+		</motion.article>
 	);
 
 	if (href) {

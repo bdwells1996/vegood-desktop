@@ -29,6 +29,32 @@ export async function getRecipeById(id: string): Promise<RecipeWithCategories | 
   return results[0] ?? null;
 }
 
+export async function getCategoryBySlug(slug: string): Promise<CategoryWithRecipes | null> {
+  const [category] = await db
+    .select()
+    .from(categories)
+    .where(eq(categories.slug, slug))
+    .limit(1);
+
+  if (!category) return null;
+
+  const rows = await db
+    .select()
+    .from(recipes)
+    .leftJoin(recipeCategories, eq(recipeCategories.recipeId, recipes.id))
+    .leftJoin(categories, eq(categories.id, recipeCategories.categoryId))
+    .where(eq(recipeCategories.categoryId, category.id));
+
+  const recipeMap = new Map<string, Recipe>();
+  for (const row of rows) {
+    if (!recipeMap.has(row.recipes.id)) {
+      recipeMap.set(row.recipes.id, row.recipes);
+    }
+  }
+
+  return { ...category, recipes: [...recipeMap.values()] };
+}
+
 export async function getRecipesByCategory(): Promise<CategoryWithRecipes[]> {
   const allCategories = await db
     .select()
