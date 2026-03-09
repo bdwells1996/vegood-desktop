@@ -7,7 +7,6 @@ import { CategorySection } from "./CategorySection";
 
 interface BrowseViewProps {
 	categories: CategoryWithRecipes[];
-	isAuthenticated: boolean;
 }
 
 export function BrowseView({ categories }: BrowseViewProps) {
