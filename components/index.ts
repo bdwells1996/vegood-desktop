@@ -1,4 +1,5 @@
 export { Button } from './Button'
+export { Divider } from './Divider'
 export { Form, useFormErrors } from './Form'
 export { Input } from './Input'
 export { TestimonialCarousel, TestimonialProgressDots } from './TestimonialCarousel'

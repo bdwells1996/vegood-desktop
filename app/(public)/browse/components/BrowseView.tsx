@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { RecipeCard } from "@/app/components/RecipeCard";
-import { getAllergenTags, getDietaryTags } from "@/app/lib/recipe-tag-icons";
 import type { CategoryWithRecipes } from "@/db/queries/recipes";
 import { CategorySection } from "./CategorySection";
 
@@ -55,26 +53,11 @@ export function BrowseView({ categories, isAuthenticated }: BrowseViewProps) {
       </div>
 
       {selectedCategory ? (
-        <div className="flex flex-wrap gap-4">
-          {selectedCategory.recipes.map((recipe) => (
-            <RecipeCard
-              key={recipe.id}
-              title={recipe.title}
-              description={recipe.description ?? ""}
-              imageSrc={recipe.imageUrl ?? "/images/placeholder.jpg"}
-              imageAlt={`A photo of ${recipe.title}`}
-              rating={recipe.rating ? Number(recipe.rating) : undefined}
-              reviewCount={recipe.ratingCount}
-              prepTime={recipe.timeMinutes ? `${recipe.timeMinutes} min` : ""}
-              dietaryTags={getDietaryTags(recipe.dietaryTags)}
-              allergens={getAllergenTags(recipe.allergens)}
-            />
-          ))}
-        </div>
+        <CategorySection category={selectedCategory} showAllCards />
       ) : (
         <div className="flex flex-col gap-10">
           {categories.map((category) => (
-            <CategorySection key={category.id} category={category} />
+            <CategorySection key={category.id} category={category} showAllCards={false} />
           ))}
         </div>
       )}

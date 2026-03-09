@@ -1,3 +1,5 @@
+'use client'
+
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { RecipeCard } from "@/app/components/RecipeCard";
@@ -7,10 +9,18 @@ import type { CategoryWithRecipes } from "@/db/queries/recipes";
 
 interface CategorySectionProps {
 	category: CategoryWithRecipes;
+	cardsPerRow?: number;
+	showAllCards?: boolean;
 }
 
-export function CategorySection({ category }: CategorySectionProps) {
+export function CategorySection({
+	category,
+	cardsPerRow = 4,
+	showAllCards = false,
+}: CategorySectionProps) {
 	if (category.recipes.length === 0) return null;
+
+	const displayCount = showAllCards ? category.recipes.length : Math.min(category.recipes.length, cardsPerRow);
 
 	return (
 		<section>
@@ -28,7 +38,7 @@ export function CategorySection({ category }: CategorySectionProps) {
 				</Link>
 			</div>
 			<div className="flex gap-4 overflow-x-auto pb-4">
-				{category.recipes.slice(0, 4).map((recipe) => (
+				{category.recipes.slice(0, displayCount).map((recipe) => (
 					<RecipeCard
 						key={recipe.id}
 						title={recipe.title}
