@@ -68,7 +68,7 @@ export interface RecipeCardProps {
 	href?: string;
 }
 
-const VISIBLE_TAG_COUNT = 2;
+const VISIBLE_TAG_COUNT = 3;
 
 /**
  * RecipeCard — displays a recipe with image, title, rating, description,
@@ -108,7 +108,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 			transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
 			className="
         relative flex flex-col overflow-hidden
-        w-[282.664px]
+        w-full
         rounded-xl
         bg-background
         shadow-card-md
