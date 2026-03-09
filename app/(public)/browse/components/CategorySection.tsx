@@ -32,7 +32,7 @@ export function CategorySection({
 				<button
 					type="button"
 					onClick={() => onViewAll?.(category.slug)}
-					className="text-sm text-primary-600 hover:text-primary-700 transition-colors flex"
+					className="text-sm text-primary-600 hover:text-primary-700 transition-colors flex cursor-pointer"
 				>
 					View all{" "}
 					<span className="text-content-secondary font-medium ml-1">

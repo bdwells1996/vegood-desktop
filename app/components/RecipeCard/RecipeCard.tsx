@@ -1,5 +1,6 @@
 "use client";
 
+import { Clock } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -133,6 +134,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 					variant="grey"
 					label={prepTime}
 					className="absolute top-3 right-3 shadow-sm"
+					icon={Clock}
 				/>
 			</div>
 
