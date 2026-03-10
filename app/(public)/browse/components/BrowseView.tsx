@@ -77,7 +77,7 @@ export function BrowseView({
 							<span className="text-content-tertiary">/</span>
 						</>
 					)}
-					<h1 className="text-3xl font-bold">
+					<h1 className="text-3xl font-semibold">
 						{selectedCategory ? selectedCategory.title : "Browse Recipes"}
 					</h1>
 				</div>
