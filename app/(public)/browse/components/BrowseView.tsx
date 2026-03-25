@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useDebounce } from "use-debounce";
 import type { CategoryWithRecipes } from "@/db/queries/recipes";
 import { CategorySection } from "./CategorySection";
-import { SearchInput } from "./SearchInput";
+import { BrowseToolbar } from "./BrowseToolbar";
 
 interface BrowseViewProps {
 	categories: CategoryWithRecipes[];
@@ -63,26 +63,25 @@ export function BrowseView({
 
 	return (
 		<>
-			<div className="mb-8 flex items-center justify-between">
-				<div className="flex items-center gap-3">
-					{selectedCategory && (
-						<>
-							<button
-								type="button"
-								onClick={clearCategory}
-								className="text-sm text-content-tertiary hover:text-content-primary transition-colors"
-							>
-								Browse
-							</button>
-							<span className="text-content-tertiary">/</span>
-						</>
-					)}
-					<h1 className="text-3xl font-semibold">
-						{selectedCategory ? selectedCategory.title : "Browse Recipes"}
-					</h1>
-				</div>
-				<SearchInput value={searchTerm} onChange={setSearchTerm} />
+			<div className="mb-6 flex items-center gap-3">
+				{selectedCategory && (
+					<>
+						<button
+							type="button"
+							onClick={clearCategory}
+							className="text-sm text-content-tertiary hover:text-content-primary transition-colors"
+						>
+							Browse
+						</button>
+						<span className="text-content-tertiary">/</span>
+					</>
+				)}
+				<h1 className="text-3xl font-semibold">
+					{selectedCategory ? selectedCategory.title : "Browse Recipes"}
+				</h1>
 			</div>
+
+			<BrowseToolbar searchValue={searchTerm} onSearchChange={setSearchTerm} />
 
 			{filteredCategories.length === 0 && debouncedSearch ? (
 				<p className="text-content-secondary">
