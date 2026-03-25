@@ -3,8 +3,9 @@
 import { useMemo, useState } from "react";
 import { useDebounce } from "use-debounce";
 import type { CategoryWithRecipes } from "@/db/queries/recipes";
-import { CategorySection } from "./CategorySection";
+import { BrowseBreadcrumb } from "./BrowseBreadcrumb";
 import { BrowseToolbar } from "./BrowseToolbar";
+import { CategorySection } from "./CategorySection";
 
 interface BrowseViewProps {
 	categories: CategoryWithRecipes[];
@@ -65,23 +66,10 @@ export function BrowseView({
 
 	return (
 		<>
-			<div className="mb-6 flex items-center gap-3">
-				{selectedCategory && (
-					<>
-						<button
-							type="button"
-							onClick={clearCategory}
-							className="text-sm text-content-tertiary hover:text-content-primary transition-colors"
-						>
-							Browse
-						</button>
-						<span className="text-content-tertiary">/</span>
-					</>
-				)}
-				<h1 className="text-3xl font-semibold">
-					{selectedCategory ? selectedCategory.title : "Browse Recipes"}
-				</h1>
-			</div>
+			<BrowseBreadcrumb
+				selectedCategoryTitle={selectedCategory?.title}
+				onClear={clearCategory}
+			/>
 
 			<BrowseToolbar searchValue={searchTerm} onSearchChange={setSearchTerm} />
 
