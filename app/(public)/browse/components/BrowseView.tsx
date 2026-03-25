@@ -23,11 +23,13 @@ export function BrowseView({
 
 	function selectCategory(slug: string) {
 		setSelectedCategorySlug(slug);
+		setSearchTerm("");
 		window.history.replaceState(null, "", `/browse?category=${slug}`);
 	}
 
 	function clearCategory() {
 		setSelectedCategorySlug(null);
+		setSearchTerm("");
 		window.history.replaceState(null, "", "/browse");
 	}
 

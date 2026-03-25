@@ -15,15 +15,14 @@ export function SearchInput({
 	placeholder = "Search recipes…",
 }: SearchInputProps) {
 	return (
-		<div className="flex w-ful gap-2 items-center justify-between rounded-lg border border-border bg-background py-2 px-4 text-sm text-content-primary placeholder:text-content-secondary focus:outline-none focus:ring-2 focus:ring-primary-500 md:w-[300px]">
+		<div className="flex w-full gap-2 items-center justify-between rounded-lg border border-border bg-background py-2 px-4 text-sm text-content-primary focus-within:ring-2 focus-within:ring-primary-500 md:w-75">
 			<input
-				id="search"
-				name="search"
 				type="text"
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				placeholder={placeholder}
-				className="flex-1"
+				aria-label={placeholder}
+				className="flex-1 placeholder:text-content-secondary focus:outline-none bg-transparent"
 			/>
 
 			{value ? (
