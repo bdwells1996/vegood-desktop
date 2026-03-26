@@ -110,6 +110,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 			className="
         relative flex flex-col overflow-hidden
         w-full
+		h-full
         rounded-xl
         bg-background
         shadow-card-md

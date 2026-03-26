@@ -1,18 +1,21 @@
-import { eq } from "drizzle-orm";
+import { avg, count, eq, asc } from "drizzle-orm";
 import { db } from "../index";
-import { categories, recipeCategories, recipes } from "../schema";
+import { categories, recipeCategories, recipeRatings, recipes } from "../schema";
 
 export type Recipe = typeof recipes.$inferSelect;
 export type Category = typeof categories.$inferSelect;
 export type RecipeWithCategories = Recipe & { categories: Category[] };
 export type CategoryWithRecipes = Category & { recipes: Recipe[] };
 
-export async function getRecipes(): Promise<RecipeWithCategories[]> {
+const DEFAULT_RECIPE_LIMIT = 200;
+
+export async function getRecipes(limit = DEFAULT_RECIPE_LIMIT): Promise<RecipeWithCategories[]> {
   const rows = await db
     .select()
     .from(recipes)
     .leftJoin(recipeCategories, eq(recipeCategories.recipeId, recipes.id))
-    .leftJoin(categories, eq(categories.id, recipeCategories.categoryId));
+    .leftJoin(categories, eq(categories.id, recipeCategories.categoryId))
+    .limit(limit);
 
   return aggregateRecipesWithCategories(rows);
 }
@@ -65,7 +68,8 @@ export async function getRecipesByCategory(): Promise<CategoryWithRecipes[]> {
     .select()
     .from(recipes)
     .leftJoin(recipeCategories, eq(recipeCategories.recipeId, recipes.id))
-    .leftJoin(categories, eq(categories.id, recipeCategories.categoryId));
+    .leftJoin(categories, eq(categories.id, recipeCategories.categoryId))
+    .limit(DEFAULT_RECIPE_LIMIT);
 
   const recipeMap = new Map<string, RecipeWithCategories>();
   for (const row of rows) {
@@ -85,6 +89,38 @@ export async function getRecipesByCategory(): Promise<CategoryWithRecipes[]> {
     ),
   }));
 }
+
+// ─── Recipe detail ────────────────────────────────────────────────────────────
+
+export type RecipeDetail = NonNullable<Awaited<ReturnType<typeof getRecipeDetail>>>;
+export type RatingSummary = { avg: string | null; count: number };
+
+export async function getRecipeDetail(id: string) {
+  return db.query.recipes.findFirst({
+    where: eq(recipes.id, id),
+    with: {
+      steps: {
+        orderBy: (steps) => [asc(steps.stepNumber)],
+        with: {
+          stepIngredients: {
+            with: { ingredient: true },
+          },
+        },
+      },
+    },
+  });
+}
+
+export async function getRecipeRatingSummary(recipeId: string): Promise<RatingSummary> {
+  const [row] = await db
+    .select({ avg: avg(recipeRatings.score), count: count() })
+    .from(recipeRatings)
+    .where(eq(recipeRatings.recipeId, recipeId));
+
+  return { avg: row?.avg ?? null, count: Number(row?.count ?? 0) };
+}
+
+// ─── Internal helpers ─────────────────────────────────────────────────────────
 
 type JoinRow = {
   recipes: Recipe;
