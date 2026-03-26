@@ -29,17 +29,20 @@ export function CategorySection({
 		<section>
 			<div className="mb-4 flex items-baseline justify-between content-center">
 				<h2 className="text-xl font-semibold">{category.title}</h2>
-				<button
-					type="button"
-					onClick={() => onViewAll?.(category.slug)}
-					className="text-sm text-primary-600 hover:text-primary-700 transition-colors flex cursor-pointer"
-				>
-					View all{" "}
-					<span className="text-content-secondary font-medium ml-1">
-						({category.recipes.length})
-					</span>
-					<Icon icon={ChevronRight} />
-				</button>
+				{onViewAll && (
+					<button
+						type="button"
+						onClick={() => onViewAll(category.slug)}
+						aria-label={`View all ${category.title}`}
+						className="text-sm text-primary-600 hover:text-primary-700 transition-colors flex cursor-pointer"
+					>
+						View all{" "}
+						<span className="text-content-secondary font-medium ml-1">
+							({category.recipes.length})
+						</span>
+						<Icon icon={ChevronRight} />
+					</button>
+				)}
 			</div>
 			<div className="grid grid-cols-1 sm-plus:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
 				{category.recipes.slice(0, displayCount).map((recipe) => (
@@ -54,6 +57,7 @@ export function CategorySection({
 						prepTime={recipe.timeMinutes ? `${recipe.timeMinutes} min` : ""}
 						dietaryTags={getDietaryTags(recipe.dietaryTags)}
 						allergens={getAllergenTags(recipe.allergens)}
+						href={`/recipes/${recipe.id}`}
 					/>
 				))}
 			</div>
