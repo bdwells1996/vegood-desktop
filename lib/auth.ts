@@ -5,7 +5,7 @@ import { db } from "@/db"
 import { users } from "@/db/schema"
 import { comparePassword } from "@/lib/password"
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
   providers: [
     Credentials({
       credentials: {
@@ -52,11 +52,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
   },
   callbacks: {
-    jwt({ token, user }) {
+    jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id
         token.firstName = user.firstName
         token.lastName = user.lastName
+      }
+      if (trigger === "update" && session?.user) {
+        token.firstName = session.user.firstName
+        token.lastName = session.user.lastName
+        token.email = session.user.email
       }
       return token
     },

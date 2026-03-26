@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { updateProfileAction } from '@/actions/auth'
@@ -16,6 +17,9 @@ interface ProfileFormProps {
 }
 
 export function ProfileForm({ firstName, lastName, email }: ProfileFormProps) {
+  const [displayedProfile, setDisplayedProfile] = useState({ firstName, lastName, email })
+  const [serverError, setServerError] = useState<string | null>(null)
+
   const form = useForm<ProfileInput>({
     resolver: zodResolver(profileSchema),
     defaultValues: { firstName, lastName, email },
@@ -24,6 +28,7 @@ export function ProfileForm({ firstName, lastName, email }: ProfileFormProps) {
   const { isDirty, isSubmitting } = form.formState
 
   async function onSubmit(data: ProfileInput) {
+    setServerError(null)
     const result = await updateProfileAction(data)
     if (result.fieldError) {
       form.setError(result.fieldError.field as keyof ProfileInput, {
@@ -31,18 +36,23 @@ export function ProfileForm({ firstName, lastName, email }: ProfileFormProps) {
       })
       return
     }
+    if (result.error) {
+      setServerError(result.error)
+      return
+    }
     if (result.success) {
       form.reset(data)
+      setDisplayedProfile(data)
     }
   }
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center gap-4">
-        <Avatar firstName={firstName} lastName={lastName} size="lg" />
+        <Avatar firstName={displayedProfile.firstName} lastName={displayedProfile.lastName} size="lg" />
         <div>
-          <p className="font-semibold text-content-primary">{firstName} {lastName}</p>
-          <p className="text-content-tertiary text-body">{email}</p>
+          <p className="font-semibold text-content-primary">{displayedProfile.firstName} {displayedProfile.lastName}</p>
+          <p className="text-content-tertiary text-body">{displayedProfile.email}</p>
         </div>
       </div>
 
@@ -58,13 +68,16 @@ export function ProfileForm({ firstName, lastName, email }: ProfileFormProps) {
           placeholder="you@example.com"
           fullWidth
         />
-        <div>
+        <div className="flex flex-col gap-2">
           <Button
             type="submit"
             disabled={!isDirty || isSubmitting}
           >
             Save changes
           </Button>
+          {serverError && (
+            <p className="text-sm text-red-600">{serverError}</p>
+          )}
         </div>
       </Form>
     </div>
