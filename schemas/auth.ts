@@ -18,5 +18,12 @@ export const signupSchema = z
     path: ["confirmPassword"],
   })
 
+export const profileSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.string().email("Please enter a valid email address"),
+})
+
 export type LoginInput = z.infer<typeof loginSchema>
 export type SignupInput = z.infer<typeof signupSchema>
+export type ProfileInput = z.infer<typeof profileSchema>

@@ -103,7 +103,7 @@ export const recipeRatings = pgTable(
       .references(() => recipes.id, { onDelete: "cascade" }),
     userId: text("user_id")
       .notNull()
-      .references(() => users.id),
+      .references(() => users.id, { onDelete: "cascade" }),
     score: integer("score").notNull(),
     review: text("review"),
     createdAt: timestamp("created_at").defaultNow().notNull(),

@@ -3,8 +3,9 @@
 import { useState, useId } from 'react'
 import type { InputHTMLAttributes, TextareaHTMLAttributes } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
+import { useFormContext } from 'react-hook-form'
+import type { UseFormReturn } from 'react-hook-form'
 import { Icon } from '../Icon'
-import { useFormErrors } from '../Form/FormContext'
 
 type InputSize = 'md' | 'lg'
 
@@ -47,8 +48,13 @@ export function Input({
   const id = `input-${name}-${uid}`
   const descId = `${id}-desc`
 
-  const { errors, inForm } = useFormErrors()
-  const contextError = inForm ? errors[name]?.[0] : undefined
+  // useFormContext returns null when outside FormProvider at runtime
+  const formCtx = useFormContext() as UseFormReturn<Record<string, unknown>> | null
+  const inForm = formCtx !== null
+
+  const contextError = inForm
+    ? (formCtx.formState.errors[name]?.message as string | undefined)
+    : undefined
   const error = errorProp ?? contextError
 
   const isTextarea = (rest as { type?: string }).type === 'textarea'
@@ -57,8 +63,16 @@ export function Input({
   const [showPassword, setShowPassword] = useState(false)
 
   const sizeClasses = SIZE_CLASSES[size]
-
   const widthClass = inForm && !fullWidth ? 'w-full md:w-1/2' : 'w-full'
+
+  // Separate type from rest so we can control it explicitly
+  const { type: _typeProp, ...restWithoutType } = rest as InputProps
+  const effectiveType = isPassword ? (showPassword ? 'text' : 'password') : _typeProp
+
+  // Register field with react-hook-form when inside a form
+  const { ref: registerRef, ...registerRest } = inForm
+    ? formCtx.register(name)
+    : { ref: undefined as React.Ref<HTMLInputElement> | undefined, name, onChange: undefined as unknown, onBlur: undefined as unknown }
 
   const baseInputClasses = [
     'flex-1 bg-transparent outline-none',
@@ -115,19 +129,20 @@ export function Input({
           ]
             .filter(Boolean)
             .join(' ')}
-          {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
+          {...(restWithoutType as TextareaHTMLAttributes<HTMLTextAreaElement>)}
         />
       ) : (
         <div className={wrapperBorderClasses}>
           <input
+            ref={registerRef}
             id={id}
-            name={name}
-            type={isPassword ? (showPassword ? 'text' : 'password') : (rest as InputProps).type}
+            type={effectiveType}
             disabled={disabled}
             aria-invalid={error ? 'true' : undefined}
             aria-describedby={helperText || error ? descId : undefined}
             className={baseInputClasses}
-            {...(rest as InputHTMLAttributes<HTMLInputElement>)}
+            {...(registerRest as InputHTMLAttributes<HTMLInputElement>)}
+            {...(restWithoutType as InputHTMLAttributes<HTMLInputElement>)}
           />
           {isPassword && (
             <button

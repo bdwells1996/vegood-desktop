@@ -1,45 +1,22 @@
 'use client'
 
-import { useActionState } from 'react'
-import type { ZodSchema } from 'zod'
+import { FormProvider } from 'react-hook-form'
+import type { UseFormReturn, FieldValues } from 'react-hook-form'
 import type { ReactNode } from 'react'
-import { FormContext } from './FormContext'
 
-type FormState = {
-  errors: Record<string, string[] | undefined>
-}
-
-const initialState: FormState = { errors: {} }
-
-interface FormProps {
-  action: (prevState: FormState, formData: FormData) => Promise<FormState>
-  schema: ZodSchema
+interface FormProps<T extends FieldValues> {
+  form: UseFormReturn<T>
+  onSubmit: (data: T) => void | Promise<void>
   children: ReactNode
   className?: string
 }
 
-export function Form({ action, schema, children, className }: FormProps) {
-  const wrappedAction = async (prevState: FormState, formData: FormData): Promise<FormState> => {
-    const rawData: Record<string, unknown> = {}
-    formData.forEach((value, key) => {
-      rawData[key] = value
-    })
-
-    const result = schema.safeParse(rawData)
-    if (!result.success) {
-      return { errors: result.error.flatten().fieldErrors as Record<string, string[] | undefined> }
-    }
-
-    return action(prevState, formData)
-  }
-
-  const [state, dispatch] = useActionState(wrappedAction, initialState)
-
+export function Form<T extends FieldValues>({ form, onSubmit, children, className }: FormProps<T>) {
   return (
-    <FormContext.Provider value={{ errors: state.errors, inForm: true }}>
-      <form action={dispatch} noValidate className={className}>
+    <FormProvider {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} noValidate className={className}>
         {children}
       </form>
-    </FormContext.Provider>
+    </FormProvider>
   )
 }

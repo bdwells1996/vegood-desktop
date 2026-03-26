@@ -1,17 +1,5 @@
-"use client"
+'use client'
 
-import { createContext, useContext } from 'react'
-
-export interface FormContextValue {
-  errors: Record<string, string[] | undefined>
-  inForm: boolean
-}
-
-export const FormContext = createContext<FormContextValue>({
-  errors: {},
-  inForm: false,
-})
-
-export function useFormErrors(): FormContextValue {
-  return useContext(FormContext)
-}
+// Form context is now provided by react-hook-form's FormProvider.
+// This file is kept for any re-exports needed by consumers.
+export { useFormContext } from 'react-hook-form'
