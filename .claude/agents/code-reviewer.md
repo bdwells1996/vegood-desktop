@@ -95,6 +95,25 @@ function processUsers(users) {
 }
 ```
 
+### TypeScript Type Safety (HIGH)
+
+When reviewing TypeScript/JavaScript code:
+
+- **`any` without justification** — use `unknown` and narrow, or a precise type
+- **Non-null assertion abuse** — `value!` without a preceding guard — add a runtime check
+- **`as` casts that bypass checks** — casting to unrelated types to silence errors — fix the type instead
+- **Relaxed compiler settings** — if `tsconfig.json` is touched and weakens strictness, flag it explicitly
+- **`var` usage** — use `const` by default, `let` when reassignment is needed
+- **Implicit `any` from missing return types** — public functions should have explicit return types
+- **`==` instead of `===`** — use strict equality throughout
+
+### Async Correctness (HIGH)
+
+- **Unhandled promise rejections** — `async` functions called without `await` or `.catch()`
+- **Sequential awaits for independent work** — `await` inside loops when operations could run in parallel — consider `Promise.all`
+- **`async` with `forEach`** — `array.forEach(async fn)` does not await — use `for...of` or `Promise.all`
+- **Floating promises** — fire-and-forget without error handling in event handlers or constructors
+
 ### React/Next.js Patterns (HIGH)
 
 When reviewing React/Next.js code, also check:
