@@ -1,6 +1,8 @@
 import {
+  date,
   integer,
   numeric,
+  pgEnum,
   pgTable,
   primaryKey,
   text,
@@ -145,4 +147,31 @@ export const recipeStepIngredientsRelations = relations(recipeStepIngredients, (
 export const recipeRatingsRelations = relations(recipeRatings, ({ one }) => ({
   recipe: one(recipes, { fields: [recipeRatings.recipeId], references: [recipes.id] }),
   user: one(users, { fields: [recipeRatings.userId], references: [users.id] }),
+}));
+
+// ─── Meal Plans ───────────────────────────────────────────────────────────────
+
+export const mealSlotEnum = pgEnum("meal_slot", ["breakfast", "lunch", "dinner"]);
+
+export const mealPlans = pgTable(
+  "meal_plans",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    date: date("date").notNull(),
+    slot: mealSlotEnum("slot").notNull(),
+    recipeId: uuid("recipe_id")
+      .notNull()
+      .references(() => recipes.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => [unique().on(t.userId, t.date, t.slot)]
+);
+
+export const mealPlansRelations = relations(mealPlans, ({ one }) => ({
+  user: one(users, { fields: [mealPlans.userId], references: [users.id] }),
+  recipe: one(recipes, { fields: [mealPlans.recipeId], references: [recipes.id] }),
 }));
