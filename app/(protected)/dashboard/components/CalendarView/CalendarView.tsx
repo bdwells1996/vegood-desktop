@@ -62,9 +62,9 @@ export function CalendarView({ weekPlan, onDaySelect }: CalendarViewProps) {
 						onClick={handleViewToday}
 						disabled={isOnToday}
 						className={clsx(
-							"text-body font-medium transition-colors",
+							"text-body cursor-pointer font-medium transition-colors",
 							isOnToday
-								? "cursor-not-allowed opacity-40 text-primary-600"
+								? "pointer-events-none opacity-40 text-primary-600"
 								: "text-primary-600 hover:text-primary-700",
 						)}
 					>
