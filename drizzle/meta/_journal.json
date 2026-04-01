@@ -29,6 +29,13 @@
       "when": 1774541053038,
       "tag": "0003_lumpy_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1774630271451,
+      "tag": "0004_long_exodus",
+      "breakpoints": true
     }
   ]
 }
