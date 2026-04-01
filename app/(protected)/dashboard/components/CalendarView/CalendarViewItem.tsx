@@ -21,8 +21,6 @@ function getDayFillState(dayPlan: DayPlan): DayFillState {
 	return "empty";
 }
 
-
-
 // Border colour on mobile conveys status at a glance.
 // On desktop, border reverts to selection/today logic and status is shown via the icon circle.
 const mobileBorderByState: Record<DayFillState, string> = {
@@ -47,18 +45,14 @@ export function CalendarViewItem({
 			type="button"
 			onClick={() => onClick(dayPlan)}
 			className={clsx(
-				"flex flex-col items-center rounded-xl border-2 transition-all",
+				"flex cursor-pointer flex-col items-center rounded-xl border-2 transition-colors",
 				"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
 				// Mobile: compact, status-coloured border, ring shows selection
 				"gap-1 p-2",
 				mobileBorderByState[state],
 				// Desktop: expand layout, border switches to selection/today logic
 				"md:gap-3 md:p-3 md:ring-0",
-				isSelected
-					? "md:border-primary-500 md:shadow-sm"
-					: isToday
-						? "md:border-primary-300"
-						: "md:border-border md:hover:border-neutral-300",
+				isSelected && "pointer-events-none md:border-primary-500 md:shadow-sm",
 			)}
 			aria-pressed={isSelected}
 			aria-label={`${dayLabel} ${dateNum} — ${state}`}
