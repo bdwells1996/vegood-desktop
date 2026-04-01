@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { getRecipesByCategory } from "@/db/queries/recipes";
 import { BrowseView } from "./components/BrowseView";
+import { BrowseViewSkeleton } from "./components/BrowseViewSkeleton";
 
 export default async function BrowsePage({
 	searchParams,
@@ -14,7 +15,7 @@ export default async function BrowsePage({
 
 	return (
 		<div className="mx-auto max-w-6xl p-8">
-			<Suspense>
+			<Suspense fallback={<BrowseViewSkeleton />}>
 				<BrowseView
 					categories={categories}
 					initialCategory={params.category ?? null}
