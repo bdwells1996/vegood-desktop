@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { isValidUUID } from "@/app/lib/validation";
 import { Icon } from "@/components/Icon";
 import { getRecipeDetail, getRecipeRatingSummary } from "@/db/queries/recipes";
 import { IngredientsList } from "./components/IngredientsList";
@@ -12,6 +13,7 @@ export default async function RecipePage({
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
+	if (!isValidUUID(id)) notFound();
 	const [recipe, ratingSummary] = await Promise.all([
 		getRecipeDetail(id),
 		getRecipeRatingSummary(id),

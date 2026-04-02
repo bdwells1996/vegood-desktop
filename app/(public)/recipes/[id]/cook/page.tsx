@@ -1,6 +1,7 @@
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { isValidUUID } from "@/app/lib/validation";
 import { getRecipeDetail } from "@/db/queries/recipes";
 import { StepNavigator } from "./components/StepNavigator";
 
@@ -10,6 +11,7 @@ export default async function CookModePage({
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
+	if (!isValidUUID(id)) notFound();
 	const recipe = await getRecipeDetail(id);
 
 	if (!recipe) notFound();

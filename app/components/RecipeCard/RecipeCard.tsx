@@ -94,7 +94,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 	const [isExpanded, setIsExpanded] = useState(false);
 
 	const formattedRating = rating?.toFixed(1);
-	const formattedReviewCount = reviewCount.toLocaleString();
+	const formattedReviewCount = (reviewCount ?? 0).toLocaleString();
 
 	const hasOverflow = dietaryTags.length > VISIBLE_TAG_COUNT;
 	const visibleTags =
